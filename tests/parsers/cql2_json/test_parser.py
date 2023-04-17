@@ -405,6 +405,20 @@ def test_within_multipolygon_attr():
         ast.Attribute("geometry"),
     )
 
+    result = parse(
+        {
+            "op": "s_within",
+            "args": [
+                {"bbox": [0.0, 1.0, 2.0, 3.0]},
+                {"property": "geometry"},
+            ],
+        }
+    )
+    assert result == ast.GeometryWithin(
+        values.Envelope(0.0, 1.0, 2.0, 3.0),
+        ast.Attribute("geometry"),
+    )
+
 
 def test_touches_attr_multilinestring():
     result = parse(
